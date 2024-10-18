@@ -13,7 +13,10 @@
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build"
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> bb930ff64b50602c8c25b76568b1c8c6ab55e7f1
   },
   "dependencies": {
     "react": "^18.3.1",
@@ -36,4 +39,8 @@
     "vite": "^5.4.8"
   }
 }
+<<<<<<< HEAD
 
+=======
+"homepage": "https://<Purohit1999>.github.io/<form-validation>"
+>>>>>>> bb930ff64b50602c8c25b76568b1c8c6ab55e7f1
