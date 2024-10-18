@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 const FormValidation = () => {
-  const [formData, setFormData] = useState({
+  const initialFormData = {
     reqfield: "",
     email: "",
     password: "",
@@ -10,11 +10,21 @@ const FormValidation = () => {
     digits: "",
     number: "",
     alphanum: "",
-    textarea: ""
-  });
+    textarea: "",
+  };
 
-  const { reqfield, email, password, confirmpass, url, digits, number, alphanum, textarea } = formData;
-
+  const [formData, setFormData] = useState(initialFormData);
+  const {
+    reqfield,
+    email,
+    password,
+    confirmpass,
+    url,
+    digits,
+    number,
+    alphanum,
+    textarea,
+  } = formData;
   const [errors, setErrors] = useState({});
 
   const handleChange = (e) => {
@@ -84,12 +94,35 @@ const FormValidation = () => {
       validationErrors.alphanum = "It should be alphanumeric";
     }
 
+    // Textarea validation (Required and min length of 10 characters)
+    if (textarea === "") {
+      validationErrors.textarea = "This field is mandatory";
+    } else if (textarea.length < 10) {
+      validationErrors.textarea = "Textarea should be at least 10 characters";
+    }
+
     setErrors(validationErrors);
+  };
+
+  const handleReset = (e) => {
+    e.preventDefault();
+    setFormData({
+      reqfield: "",
+      password: "",
+      confirmpass: "",
+      url: "",
+      digits: "",
+      number: "",
+      alphanum: "",
+      textarea: "",
+    });
   };
 
   return (
     <form className="w-1/3 ml-2" onSubmit={handleSubmit}>
-      <legend className="text-2xl font-bold text-red-800 border-b-[3.5px]">Form Validation</legend>
+      <legend className="text-2xl font-bold text-red-800 border-b-[3.5px]">
+        Form Validation
+      </legend>
 
       {/* REQUIRED FIELD */}
       <section className="form-group p-[1.5px] my-3">
@@ -243,14 +276,28 @@ const FormValidation = () => {
             value={textarea}
             onChange={handleChange}
           ></textarea>
+          <div className="form-error ring-offset-amber-950 text-sm">
+            {errors.textarea && <span>{errors.textarea}</span>}
+          </div>
         </div>
       </section>
 
       {/* BUTTONS */}
       <section className="form-group p-[1.5px] my-3">
         <div className="flex gap-3">
-          <button type="submit" className="bg-red-800 rounded-md px-4 py-1 text-white">Submit</button>
-          <button type="reset" className="bg-red-800 rounded-md px-4 py-1 text-white">Reset</button>
+          <button
+            type="submit"
+            className="bg-red-800 rounded-md px-4 py-1 text-white"
+          >
+            Submit
+          </button>
+          <button
+            type="button"
+            onClick={handleReset}
+            className="bg-red-800 rounded-md px-4 py-1 text-white"
+          >
+            Reset
+          </button>
         </div>
       </section>
     </form>
